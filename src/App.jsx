@@ -1,6 +1,6 @@
 import { useMemo, useState, useRef } from 'react'
 import FsLightbox from 'fslightbox-react'
-import { FaHeart, FaUtensils, FaMusic, FaStar } from 'react-icons/fa'
+import { FaHeart, FaUtensils, FaMusic, FaStar, FaPlay, FaPause } from 'react-icons/fa'
 import { BsCake } from 'react-icons/bs'
 import WaxSealEnvelope from './pages/WaxSealEnvelope'
 import weddingImage from './assets/we_1.jpg'
@@ -75,7 +75,6 @@ function App() {
 
   return (
     <>
-      <WaxSealEnvelope />
       <div className="invite-v2">
         <section className="v2-section v2-greeting" id="v2-greeting" style={{ backgroundImage: `url(${bg})` }}>
           <div className="v2-section-inner">
@@ -92,23 +91,24 @@ function App() {
             </p>
 
             <div className="v2-music-player" onClick={toggleMusic}>
-  <div className={`v2-player-disc`}>
-    🎵
-  </div>
-
-  <div className="v2-player-info">
-    <span className="v2-player-title">
-      {isPlaying ? "Вимкнути музику" : "Увімкнути музику"}
-    </span>
-  </div>
-
-  <video
-    ref={audioRef}
-    src={music}
-    type="video/mp4"
-    style={{ display: "none" }}
-  />
-</div>
+              <svg className="v2-music-text-ring" viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <path id="music-circle-path" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
+                </defs>
+                <text>
+                  <textPath href="#music-circle-path" startOffset="0%" textLength="276" lengthAdjust="spacingAndGlyphs">
+                    {"ВКЛЮЧИТИ ПІСНЮ • ВКЛЮЧИТИ ПІСНЮ • "}
+                  </textPath>
+                </text>
+              </svg>
+              <button
+                className={`v2-music-btn${isPlaying ? ' is-playing' : ''}`}
+                aria-label={isPlaying ? 'Вимкнути музику' : 'Включити музику'}
+              >
+                {isPlaying ? <FaPause /> : <FaPlay />}
+              </button>
+              <video ref={audioRef} src={music} type="video/mp4" style={{ display: 'none' }} />
+            </div>
           </div>
         </section>
 

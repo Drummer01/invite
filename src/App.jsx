@@ -1,11 +1,12 @@
-import { useMemo, useState, useRef } from 'react'
+import { useMemo, useState, useRef, useCallback } from 'react'
+import Lottie from 'lottie-react'
 import FsLightbox from 'fslightbox-react'
 import { FaHeart, FaUtensils, FaMusic, FaStar, FaPlay, FaPause } from 'react-icons/fa'
 import { BsCake } from 'react-icons/bs'
-import WaxSealEnvelope from './pages/WaxSealEnvelope'
-import weddingImage from './assets/we_1.jpg'
-import weddingImage2 from './assets/we_3.jpg'
-import bg from './assets/bg.jpg'
+import loveLetter from './assets/LoveLetter.json'
+import weddingImage from './assets/we_3.jpg'
+import weddingImage2 from './assets/we_1.jpg'
+import bg from './assets/beautiful-hills-skies.jpg'
 import sectionBg1 from './assets/location_1.jpg'
 import sectionBg2 from './assets/location_2.jpg'
 import sectionBg3 from './assets/location_4.PNG'
@@ -14,13 +15,13 @@ import music from './assets/music.mp4'
 import './pages/InviteV2.css'
 
 const PALETTE = [
-  { hex: '#f5ede1' },
-  { hex: '#dfc5b5' },
-  { hex: '#d9b3a1' },
-  { hex: '#a89a8a' },
-  { hex: '#8b7d73' },
-  { hex: '#7a8a6f' },
-  { hex: '#000000' },
+    { hex: '#f5ede1' },
+    { hex: '#dfc5b5' },
+    { hex: '#d9b3a1' },
+    { hex: '#a89a8a' },
+    { hex: '#8b7d73' },
+    { hex: '#7a8a6f' },
+    { hex: '#000000' },
 ]
 
 const MAP_URL =
@@ -73,14 +74,28 @@ function App() {
     setLightboxToggler((prev) => !prev)
   }
 
+  const handleLetterComplete = useCallback(() => {
+    const container = document.querySelector('.invite-v2')
+    const target = document.getElementById('v2-greeting')
+    if (container && target) container.scrollTo({ top: target.offsetTop, behavior: 'smooth' })
+  }, [])
+
   return (
     <>
-      <div className="invite-v2">
-        <section className="v2-section v2-greeting" id="v2-greeting" style={{ backgroundImage: `url(${bg})` }}>
+    <div className="bg-layer" style={{ backgroundImage: `url(${bg})` }} aria-hidden="true" />
+    <div className="invite-v2">
+      <section className="v2-section envelope-section" id="v2-envelope">
+        <Lottie
+          animationData={loveLetter}
+          loop={false}
+          onComplete={handleLetterComplete}
+          style={{ width: '100vw', maxWidth: '780px' }}
+        />
+      </section>
+      <section className="v2-section v2-greeting" id="v2-greeting">
           <div className="v2-section-inner">
             <h1 className="v2-greeting-title">Ми одружуємося</h1>
             <div className="v2-greeting-divider" aria-hidden="true" />
-            <p className="v2-greeting-date">16 серпня 2026 року</p>
             <div className="v2-greeting-photo-wrap">
               <img src={weddingImage} alt="Світлана та Андрій" className="v2-greeting-photo" />
             </div>
@@ -93,10 +108,10 @@ function App() {
             <div className="v2-music-player" onClick={toggleMusic}>
               <svg className="v2-music-text-ring" viewBox="0 0 120 120" aria-hidden="true">
                 <defs>
-                  <path id="music-circle-path" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
+                  <path id="music-circle-path" d="M 60,60 m -36,0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0" />
                 </defs>
                 <text>
-                  <textPath href="#music-circle-path" startOffset="0%" textLength="276" lengthAdjust="spacingAndGlyphs">
+                  <textPath href="#music-circle-path" startOffset="0%" textLength="226" lengthAdjust="spacingAndGlyphs">
                     {"ВКЛЮЧИТИ ПІСНЮ • ВКЛЮЧИТИ ПІСНЮ • "}
                   </textPath>
                 </text>
@@ -112,7 +127,7 @@ function App() {
           </div>
         </section>
 
-        <section className="v2-section v2-date" id="v2-date" style={{ backgroundImage: `url(${bg})` }}>
+        <section className="v2-section v2-date" id="v2-date">
           <div className="v2-section-inner">
             <h2 className="v2-heading">Дата</h2>
 
@@ -148,7 +163,7 @@ function App() {
           </div>
         </section>
 
-        <section className="v2-section v2-location" id="v2-location" style={{ backgroundImage: `url(${bg})` }}>
+        <section className="v2-section v2-location" id="v2-location">
           <div className="v2-section-inner">
             <h2 className="v2-heading">Локація</h2>
             <p className="v2-location-intro">Місце, де ми скажемо одне одному «так».</p>
@@ -182,7 +197,7 @@ function App() {
           </div>
         </section>
 
-        <section className="v2-section v2-dresscode" id="v2-dresscode" style={{ backgroundImage: `url(${bg})` }}>
+        <section className="v2-section v2-dresscode" id="v2-dresscode">
           <div className="v2-section-inner">
             <h2 className="v2-heading">Палітра для нашого дня</h2>
             <p className="v2-dresscode-subtitle">
@@ -203,7 +218,7 @@ function App() {
           </div>
         </section>
 
-        <section className="v2-section v2-schedule" id="v2-schedule" style={{ backgroundImage: `url(${bg})` }}>
+        <section className="v2-section v2-schedule" id="v2-schedule">
         <div className="v2-section-inner">
           <h2 className="v2-heading">Розклад дня на локації</h2>
           {/* <p className="v2-schedule-intro">Ось як ми плануємо провести день разом з вами — від церемонії до теплого прощання.</p> */}
@@ -229,7 +244,7 @@ function App() {
       </section>
 
 
-      <section className="v2-section v2-extra" id="v2-extra" style={{ backgroundImage: `url(${bg})` }}>
+      <section className="v2-section v2-extra" id="v2-extra">
         <div className="v2-section-inner v2-extra-inner">
           <h2 className="v2-heading">Додатково</h2>
           <p className="v2-extra-text">
@@ -244,7 +259,7 @@ function App() {
         </div>
       </section>
 
-        <section className="v2-section" id="v2-final" style={{ backgroundImage: `url(${bg})` }}>
+        <section className="v2-section" id="v2-final">
         <div className="v2-section-inner v2-final-inner">
           <h2 className="v2-final-title">Ми чекаємо на вас!</h2>
           <div className="v2-greeting-photo-wrap">
@@ -255,7 +270,7 @@ function App() {
       </section>
 
       <FsLightbox toggler={lightboxToggler} sources={locationSources} slide={lightboxSlide} />
-      </div>
+    </div>
     </>
   )
 }

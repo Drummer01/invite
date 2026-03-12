@@ -27,7 +27,7 @@
   justify-content: center;
   width: 120px;
   height: 120px;
-  margin: 40px auto 0;
+  margin: 10px auto 0;
   cursor: pointer;
   user-select: none;
 }
@@ -79,12 +79,22 @@
   to   { transform: rotate(360deg); }
 }
 
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .invite-v2 {
   height: 100vh;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
-  background: var(--light);
+  position: relative;
+  z-index: 1;
 }
 
 .v2-section {
@@ -97,9 +107,6 @@
   padding: 2rem 1.5rem;
   box-sizing: border-box;
   position: relative;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   animation: v2-fade-up 0.9s ease-out both;
 }
 
@@ -118,12 +125,18 @@
   animation: v2-fade-in-soft 0.8s ease-out 0.1s both;
 }
 
+.v2-greeting {
+    .v2-section-inner {
+        padding: 2.5rem 2rem 10px;
+    }
+}
+
 .v2-greeting-label {
   font-size: clamp(0.8rem, 2.5vw, 0.95rem);
   color: #8b7d73;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.4rem 0;
   font-weight: 500;
 }
 
@@ -132,7 +145,7 @@
   font-size: clamp(1.75rem, 6vw, 2.5rem);
   font-weight: 700;
   color: #5a4a42;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.4rem 0;
   letter-spacing: 0.02em;
 }
 
@@ -141,13 +154,13 @@
   height: 1px;
   background: #8b7d73;
   opacity: 0.6;
-  margin: 0 auto 1.25rem auto;
+  margin: 0 auto 0.6rem auto;
 }
 
 .v2-greeting-date {
   font-size: clamp(1rem, 3.5vw, 1.25rem);
   color: #5a4a42;
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 0.75rem 0;
   font-weight: 600;
 }
 
@@ -156,15 +169,15 @@
   font-size: clamp(1rem, 3vw, 1.2rem);
   font-style: italic;
   color: #8b7d73;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.4rem 0;
 }
 
 .v2-greeting-photo-wrap {
-  margin: 0 auto 1.25rem;
+  margin: 0 auto 0.75rem;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 12px 40px rgba(90, 74, 66, 0.15);
-  max-width: 400px;
+  max-width: 280px;
 }
 
 .v2-greeting-photo {
@@ -180,12 +193,12 @@
   font-weight: 600;
   color: #5a4a42;
   font-style: italic;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.5rem 0;
 }
 
 .v2-greeting-text {
   font-size: clamp(0.95rem, 2.8vw, 1.05rem);
-  line-height: 1.75;
+  line-height: 1.6;
   color: #5a4a42;
   margin: 0;
 }
@@ -420,10 +433,6 @@
 
 /* Extra block */
 
-.v2-extra {
-  background: var(--light);
-}
-
 .v2-extra-inner {
   background: rgba(250, 246, 241, 0.96);
 }
@@ -576,7 +585,6 @@
 @media (max-width: 768px) {
   .v2-section {
     padding: 1.75rem 1.25rem;
-    background-color: #bfbfbf;
   }
 
   .v2-greeting-photo-wrap {
@@ -600,7 +608,7 @@
   }
 
   .v2-music-player {
-    margin-top: 30px;
+    margin-top: 10px;
   }
 }
 

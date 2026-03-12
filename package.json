@@ -3,10 +3,12 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "homepage": "https://drummer01.github.io/invite/",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

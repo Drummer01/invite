@@ -15,13 +15,14 @@ import music from './assets/music.mp4'
 import './pages/InviteV2.css'
 
 const PALETTE = [
-    { hex: '#f5ede1' },
-    { hex: '#dfc5b5' },
-    { hex: '#d9b3a1' },
-    { hex: '#a89a8a' },
-    { hex: '#8b7d73' },
-    { hex: '#7a8a6f' },
-    { hex: '#000000' },
+  { hex: '#f6efe7' },
+  { hex: '#ead8c8' },
+  { hex: '#d8c2b2' },
+  { hex: '#b8c4b1' },
+  { hex: '#8fa18c' },
+  { hex: '#ecd6db' },
+  { hex: '#e1e8f2' },
+  { hex: '#5c677a' },
 ]
 
 const MAP_URL =
@@ -248,13 +249,12 @@ function App() {
         <div className="v2-section-inner v2-extra-inner">
           <h2 className="v2-heading">Додатково</h2>
           <p className="v2-extra-text">
-            Просимо вас не дарувати нам квіти, ми не встигнемо насолодитися їх красою.
+            Якщо ви плануєте подарувати нам квіти — ми будемо щиро раді вашій увазі.
           </p>
           <FaHeart size={50} />
           {/* <div className="v2-extra-heart" aria-hidden="true" /> */}
           <p className="v2-extra-text">
-          Нам буде дуже приємно, якщо замість квітів ви оберете невеликий подарунок для наших майбутніх зустрічей:
-пляшку улюбленого алкогольного напою або цікаву настільну гру.
+          А якщо захочете обрати щось інше, нам буде дуже приємно отримати пляшку улюбленого алкогольного напою або цікаву настільну гру — для наших майбутніх спільних вечорів.
           </p>
         </div>
       </section>

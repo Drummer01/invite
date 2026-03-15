@@ -444,6 +444,22 @@
   margin-bottom: 1.5rem;
 }
 
+.v2-extra-heartbeat {
+  display: inline-block;
+  color: #c0605a;
+  animation: heartbeat 2.4s ease-in-out infinite;
+  margin: 0.5rem 0 1.25rem;
+}
+
+@keyframes heartbeat {
+  0%   { transform: scale(1); }
+  7%   { transform: scale(1.22); }
+  14%  { transform: scale(1); }
+  21%  { transform: scale(1.18); }
+  28%  { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
 .v2-extra-heart {
   width: 40px;
   height: 36px;

@@ -1,4 +1,4 @@
-import { useMemo, useState, useRef, useCallback } from 'react'
+import { useMemo, useState, useRef, useCallback, useEffect, useLayoutEffect } from 'react'
 import Lottie from 'lottie-react'
 import FsLightbox from 'fslightbox-react'
 import { FaHeart, FaUtensils, FaMusic, FaStar, FaPlay, FaPause } from 'react-icons/fa'
@@ -53,9 +53,28 @@ const CALENDAR_DAYS = [
 function App() {
   const [lightboxToggler, setLightboxToggler] = useState(false)
   const [lightboxSlide, setLightboxSlide] = useState(1)
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
-  
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [showEnvelope, setShowEnvelope] = useState(true)
+  const audioRef = useRef(null)
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden' && audioRef.current) {
+        audioRef.current.pause()
+        setIsPlaying(false)
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+  }, [])
+
+  useLayoutEffect(() => {
+    if (!showEnvelope) {
+      const container = document.querySelector('.invite-v2')
+      if (container) container.scrollTop = 0
+    }
+  }, [showEnvelope])
+
   const toggleMusic = () => {
     if (!audioRef.current) return;
   
@@ -79,20 +98,23 @@ function App() {
     const container = document.querySelector('.invite-v2')
     const target = document.getElementById('v2-greeting')
     if (container && target) container.scrollTo({ top: target.offsetTop, behavior: 'smooth' })
+    setTimeout(() => setShowEnvelope(false), 1200)
   }, [])
 
   return (
     <>
     <div className="bg-layer" style={{ backgroundImage: `url(${bg})` }} aria-hidden="true" />
     <div className="invite-v2">
-      <section className="v2-section envelope-section" id="v2-envelope">
-        <Lottie
-          animationData={loveLetter}
-          loop={false}
-          onComplete={handleLetterComplete}
-          style={{ width: '100vw', maxWidth: '780px' }}
-        />
-      </section>
+      {showEnvelope && (
+        <section className="v2-section envelope-section" id="v2-envelope">
+          <Lottie
+            animationData={loveLetter}
+            loop={false}
+            onComplete={handleLetterComplete}
+            style={{ width: '100vw', maxWidth: '780px' }}
+          />
+        </section>
+      )}
       <section className="v2-section v2-greeting" id="v2-greeting">
           <div className="v2-section-inner">
             <h1 className="v2-greeting-title">Ми одружуємося</h1>
@@ -252,7 +274,7 @@ function App() {
            Квіти швидко в’януть, а спогади залишаються.
 Тому, якщо захочете зробити нам маленький подарунок, будемо раді настільній грі або пляшці улюбленого напою.
           </p>
-          <FaHeart size={50} />
+          <span className="v2-extra-heartbeat"><FaHeart size={50} /></span>
           {/* <div className="v2-extra-heart" aria-hidden="true" /> */}
           <p className="v2-extra-text">
 Територія ресторану не має спеціальної дитячої зони, а також на ній є необгороджена водойма. Тому, якщо маєте можливість, будемо вдячні, якщо цього дня ви залишите діток вдома. Якщо ж вони будуть разом з вами — просимо не залишати їх без нагляду.
